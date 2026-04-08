@@ -1,4 +1,4 @@
-module github.com/mitlibraries/fml
+module github.com/idsproject/fml
 
 go 1.13
 
