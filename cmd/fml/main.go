@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/mitlibraries/fml"
+	"github.com/idsproject/fml"
 	"github.com/urfave/cli"
 	"os"
 )
