@@ -66,6 +66,12 @@ func TestRecord(t *testing.T) {
 			t.Error("Expected a, got", r.Leader.Type)
 		}
 	})
+    t.Run("All control fields", func(t *testing.T) {
+        cf := r.ControlField()
+        if len(cf) != 4 {
+            t.Error("Expected 4 items, got", len(cf))
+        }
+    })
 	t.Run("Specific control field", func(t *testing.T) {
 		cf := r.ControlField("001")[0]
 		if cf.Tag != "001" {
@@ -90,6 +96,12 @@ func TestRecord(t *testing.T) {
 			t.Error("Expected 6, got", len(dfs))
 		}
 	})
+    t.Run("All data fields", func(t *testing.T) {
+        dfs := r.DataField()
+        if len(dfs) != 19 {
+            t.Error("Expected 19 data fields, got", len(dfs))
+        }
+    })
 	t.Run("Specific subfield", func(t *testing.T) {
 		df := r.DataField("260")[0]
 		sf := df.SubField("a")[0]
@@ -104,6 +116,13 @@ func TestRecord(t *testing.T) {
 			t.Error("Expected 2, got", len(sfs))
 		}
 	})
+    t.Run("All subfields", func(t *testing.T) {
+        df := r.DataField("300")[0]
+        sfs := df.SubField()
+        if len(sfs) != 3 {
+            t.Error("Expected 3 sub fields, got", len(sfs))
+        }
+    })
 	t.Run("Filter", func(t *testing.T) {
 		sfs := r.Filter("260ac", "245a", "100")
 		if len(sfs) != 3 {

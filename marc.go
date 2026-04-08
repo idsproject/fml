@@ -79,44 +79,69 @@ func (r Record) ControlNum() string {
 // a slice of matching DataFields. Note that one tag may return multiple
 // DataFields as they can be repeated.
 func (r Record) DataField(tag ...string) []DataField {
-	fields := make([]DataField, 0, len(tag))
-	for _, t := range tag {
-		for _, f := range r.Fields {
-			field, ok := f.(DataField)
-			if ok && field.Tag == t {
-				fields = append(fields, field)
-			}
-		}
-	}
+	fields := make([]DataField, 0)
+    if len(tag) == 0 {
+        for _, f := range r.Fields {
+            field, ok := f.(DataField)
+            if ok {
+                fields = append(fields, field)
+            }
+        }
+
+    } else {
+        for _, t := range tag {
+            for _, f := range r.Fields {
+                field, ok := f.(DataField)
+                if ok && field.Tag == t {
+                    fields = append(fields, field)
+                }
+            }
+        }
+    }
 	return fields
 }
 
 // ControlField method takes an arbitrary number of tag strings and returns
 // a slice of matching ControlFields.
 func (r Record) ControlField(tag ...string) []ControlField {
-	fields := make([]ControlField, 0, len(tag))
-	for _, t := range tag {
+	fields := make([]ControlField, 0)
+    if len(tag) == 0 {
 		for _, f := range r.Fields {
 			field, ok := f.(ControlField)
-			if ok && field.Tag == t {
+			if ok {
 				fields = append(fields, field)
 			}
 		}
-	}
+    } else {
+        for _, t := range tag {
+            for _, f := range r.Fields {
+                field, ok := f.(ControlField)
+                if ok && field.Tag == t {
+                    fields = append(fields, field)
+                }
+            }
+        }
+    }
 	return fields
 }
 
 // SubField takes an arbitrary number of subfield code strings and returns
 // a slice of SubFields.
 func (d DataField) SubField(subfield ...string) []SubField {
-	fields := make([]SubField, 0, len(subfield))
-	for _, s := range subfield {
+	fields := make([]SubField, 0)
+    if len(subfield) == 0 {
 		for _, f := range d.SubFields {
-			if f.Code == s {
-				fields = append(fields, f)
-			}
-		}
-	}
+            fields = append(fields, f)
+        }
+    } else {
+        for _, s := range subfield {
+            for _, f := range d.SubFields {
+                if f.Code == s {
+                    fields = append(fields, f)
+                }
+            }
+        }
+    }
 	return fields
 }
 
